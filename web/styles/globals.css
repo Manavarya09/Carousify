@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-cream-50: #FDFBF7;
+  --color-cream-100: #FAF5EB;
+  --color-cream-200: #F5EBD8;
+  --color-lavender-100: #EDE9FE;
+  --color-lavender-200: #DDD6FE;
+  --color-babyblue-100: #DBEAFE;
+  --color-babyblue-200: #BFDBFE;
+  --color-blush-100: #FCE7F3;
+  --color-blush-200: #FBCFE8;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: 'Inter', 'Poppins', system-ui, sans-serif;
+  background-color: var(--color-cream-50);
+}
+
+body {
+  color: #1a1a2e;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 bg-lavender-200 text-lavender-500 font-medium rounded-2xl 
+           transition-all duration-300 ease-out
+           hover:bg-lavender-300 hover:shadow-soft-hover
+           active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-cream-200 text-gray-700 font-medium rounded-2xl
+           transition-all duration-300 ease-out
+           hover:bg-cream-300 hover:shadow-soft-hover
+           active:scale-95;
+  }
+
+  .card {
+    @apply bg-white rounded-3xl shadow-soft p-6
+           transition-all duration-300 ease-out
+           hover:shadow-soft-hover hover:scale-[1.02];
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 bg-cream-100 rounded-xl border-2 border-transparent
+           transition-all duration-200
+           focus:outline-none focus:border-lavender-300 focus:bg-white
+           placeholder:text-gray-400;
+  }
+}
+
+.masonry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-cream-100);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-lavender-200);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-lavender-300);
+}
