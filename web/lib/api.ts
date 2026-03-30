@@ -74,8 +74,25 @@ class ApiClient {
 export const api = new ApiClient(API_URL);
 
 export const authApi = {
-  login: (email: string, password: string) =>
-    api.post<{ access_token: string }>('/api/auth/login', { email, password }),
+  login: async (email: string, password: string) => {
+    const formData = new URLSearchParams();
+    // OAuth2 password flow expects `username`, and this app uses email as username.
+    formData.append('username', email);
+    formData.append('password', password);
+
+    const response = await fetch(`${API_URL}/api/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: formData.toString(),
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ detail: 'An error occurred' }));
+      throw new Error(error.detail || 'Request failed');
+    }
+
+    return response.json() as Promise<{ access_token: string; token_type: string }>;
+  },
   register: (email: string, name: string, password: string) =>
     api.post('/api/auth/register', { email, name, password }),
   getMe: () => api.get('/api/auth/me'),
