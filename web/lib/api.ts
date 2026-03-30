@@ -76,6 +76,7 @@ export const api = new ApiClient(API_URL);
 export const authApi = {
   login: async (email: string, password: string) => {
     const formData = new URLSearchParams();
+    // OAuth2 password flow expects `username`, and this app uses email as username.
     formData.append('username', email);
     formData.append('password', password);
 

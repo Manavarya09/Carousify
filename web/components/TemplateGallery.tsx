@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { templates, categories, TemplateDefinition } from '../../shared/templates';
+import { templates, categories, TemplateDefinition } from '@shared/templates';
 import { useProjectStore, Template } from '@/store/projectStore';
 
 interface TemplateGalleryProps {

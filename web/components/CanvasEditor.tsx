@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { Stage, Layer, Rect, Image as KonvaImage, Transformer } from 'react-konva';
+import Konva from 'konva';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useProjectStore, CANVAS_WIDTH, CANVAS_HEIGHT, Slot } from '@/store/projectStore';
 import JSZip from 'jszip';
@@ -388,8 +389,8 @@ function SlotComponent({
   const [imagePos, setImagePos] = useState({ x: 0, y: 0 });
   const [imageScale, setImageScale] = useState(1);
   const [isDragging, setIsDragging] = useState(false);
-  const imageRef = useRef<any>(null);
-  const transformerRef = useRef<any>(null);
+  const imageRef = useRef<Konva.Image>(null);
+  const transformerRef = useRef<Konva.Transformer>(null);
 
   useEffect(() => {
     setImagePos(slot.imagePosition);
