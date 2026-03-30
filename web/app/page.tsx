@@ -2,10 +2,14 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import Header from '@/components/Header';
 import TemplateGallery from '@/components/TemplateGallery';
-import CanvasEditor from '@/components/CanvasEditor';
 import { useProjectStore } from '@/store/projectStore';
+
+const CanvasEditor = dynamic(() => import('@/components/CanvasEditor'), {
+  ssr: false,
+});
 
 export default function Home() {
   const [currentView, setCurrentView] = useState<'templates' | 'editor'>('templates');
