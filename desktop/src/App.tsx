@@ -1,12 +1,4 @@
 import { useState } from 'react';
-import { invoke } from '@tauri-apps/api/tauri';
-import { save, open } from '@tauri-apps/api/dialog';
-
-interface ExportResult {
-  success: boolean;
-  path: string | null;
-  error: string | null;
-}
 
 function App() {
   const [view, setView] = useState<'home' | 'editor'>('home');
