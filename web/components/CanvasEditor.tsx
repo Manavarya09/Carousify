@@ -388,7 +388,7 @@ function SlotComponent({
   const [imagePos, setImagePos] = useState({ x: 0, y: 0 });
   const [imageScale, setImageScale] = useState(1);
   const [isDragging, setIsDragging] = useState(false);
-  const imageRef = useRef<KonvaImage>(null);
+  const imageRef = useRef<any>(null);
   const transformerRef = useRef<any>(null);
 
   useEffect(() => {
