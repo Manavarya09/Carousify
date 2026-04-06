@@ -13,6 +13,9 @@ CANVAS_WIDTH = 3050
 CANVAS_HEIGHT = 1350
 
 
+SUPPORTED_FORMATS = {"png", "jpeg", "jpg", "webp"}
+
+
 class ExportRequest(BaseModel):
     images: List[str]
     slot_positions: List[dict]
@@ -22,6 +25,12 @@ class ExportRequest(BaseModel):
 
 @router.post("/slice")
 async def slice_images(request: ExportRequest):
+    if request.format.lower() not in SUPPORTED_FORMATS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Unsupported format '{request.format}'. Supported: {', '.join(sorted(SUPPORTED_FORMATS))}",
+        )
+
     if len(request.images) != len(request.slot_positions):
         raise HTTPException(
             status_code=400, detail="Number of images must match number of slots"
@@ -63,6 +72,12 @@ async def slice_images(request: ExportRequest):
 
 @router.post("/canvas")
 async def export_full_canvas(request: ExportRequest):
+    if request.format.lower() not in SUPPORTED_FORMATS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Unsupported format '{request.format}'. Supported: {', '.join(sorted(SUPPORTED_FORMATS))}",
+        )
+
     canvas = Image.new("RGB", (CANVAS_WIDTH, CANVAS_HEIGHT), "white")
 
     for image_data, slot in zip(request.images, request.slot_positions):
@@ -99,5 +114,5 @@ async def export_full_canvas(request: ExportRequest):
     return StreamingResponse(
         iter([output.getvalue()]),
         media_type=f"image/{request.format}",
-        headers={"Content-Disposition": "attachment; filename=carousify-canvas.png"},
+        headers={"Content-Disposition": f"attachment; filename=carousify-canvas.{request.format}"},
     )

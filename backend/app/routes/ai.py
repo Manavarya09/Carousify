@@ -81,6 +81,10 @@ async def auto_crop(image: UploadFile = File(...)):
             crop_width = int(w * 1.5)
             crop_height = int(crop_width / aspect_ratio)
 
+            # Clamp crop dimensions to image bounds
+            crop_width = min(crop_width, img.shape[1])
+            crop_height = min(crop_height, img.shape[0])
+
             crop_x = max(0, face_center_x - crop_width // 2)
             crop_y = max(0, face_center_y - crop_height // 2)
 
